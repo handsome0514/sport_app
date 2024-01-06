@@ -1,0 +1,36 @@
+steps:
+  - name: 'gcr.io/kaniko-project/executor:latest'
+    args:
+      - --destination=${_AR_HOSTNAME}/$PROJECT_ID/cloud-run-source-deploy/$REPO_NAME/$_SERVICE_NAME:${COMMIT_SHA}
+      - --cache=true
+      - --cache-ttl=12h
+      - --dockerfile=server/Dockerfile
+      - --context=dir://server/
+    id: Build
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:slim'
+    args:
+      - gcloud
+      - run
+      - services
+      - update
+      - $_SERVICE_NAME
+      - --platform=managed
+      - --image=${_AR_HOSTNAME}/$PROJECT_ID/cloud-run-source-deploy/$REPO_NAME/$_SERVICE_NAME:${COMMIT_SHA}
+      - --labels=managed-by=gcp-cloud-build-deploy-cloud-run,commit-sha=${COMMIT_SHA},gcb-build-id=$BUILD_ID,gcb-trigger-id=$_TRIGGER_ID
+      - --region=$_DEPLOY_REGION
+      - --quiet
+    id: Deploy
+    waitFor:
+      - Build
+options:
+  substitutionOption: ALLOW_LOOSE
+substitutions:
+  _SERVICE_NAME: subsoccer-dev-server
+  _DEPLOY_REGION: europe-west1
+  _TRIGGER_ID: d1148b79-d9dd-492d-93ac-945146d72c21
+  _AR_HOSTNAME: europe-west1-docker.pkg.dev
+  _PLATFORM: managed
+tags:
+  - gcp-cloud-build-deploy-cloud-run
+  - gcp-cloud-build-deploy-cloud-run-managed
+  - subsoccer-dev-server

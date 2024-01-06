@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: SUBSOCKER_APP_ENVIRONMENT-subsoccer-deployment
+spec:
+#  replicas: 1  # Adjust the number of replicas as needed
+  selector:
+    matchLabels:
+      app: subsoccer
+  template:
+    metadata:
+      labels:
+        app: subsoccer
+    spec:
+      containers:
+        - name: back-end
+          image: SUBSOCKER_APP_IMAGE
+          ports:
+            - containerPort: 4000
+          env:
+            - name: NODE_ENV
+              value: production
+          resources:
+            limits:
+              memory: "512Mi"
+              cpu: "0.5"
+            requests:
+              memory: "512Mi"
+              cpu: "0.5"
+        - name: mongo-db
+          image: mongo
+          ports:
+            - containerPort: 27017
+          env:
+            - name: MONGO_INITDB_ROOT_USERNAME
+              value: root
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              value: example

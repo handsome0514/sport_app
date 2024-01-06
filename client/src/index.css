@@ -1,0 +1,24 @@
+.slide-enter {
+  transition: all 300ms ease-out;
+}
+.slide-enter {
+  transform: translateY(20%);
+  opacity: 0;
+}
+
+.slide-enter.slide-enter-active {
+  transform: translateY(0%);
+  opacity: 1;
+}
+.slide-exit {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  transform: translateY(0%);
+  opacity: 1;
+}
+.slide-exit-active {
+  transform: translateY(-20%);
+  opacity: 0;
+}

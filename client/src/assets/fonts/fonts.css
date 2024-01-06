@@ -1,0 +1,35 @@
+@font-face {
+  font-family: 'resolve';
+  src: local('resolve'), local('resolve'),
+    url(./Resolve-Regular.woff) format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: fallback;
+}
+
+@font-face {
+  font-family: 'resolve';
+  src: local('resolve'), local('resolve'),
+    url(./Resolve-Bold.woff) format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: fallback;
+}
+
+@font-face {
+  font-family: 'resolve';
+  src: local('resolve'), local('resolve'),
+    url(./Resolve-Semilight.woff) format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: fallback;
+}
+
+@font-face {
+  font-family: 'SubsoccerFont';
+  src: local('SubsoccerFont'), local('SubsoccerFont'),
+    url(./subsoccer-regular.woff) format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: fallback;
+}

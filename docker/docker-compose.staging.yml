@@ -1,0 +1,71 @@
+version: '3.1'
+
+services:
+<<<<<<< HEAD
+#  nginx:
+#    container_name: nginx
+#    build:
+#      context: ../nginx
+#      dockerfile: Dockerfile
+#    ports:
+#      - 80:80
+#      - 443:443
+#    volumes:
+#      - ../nginx:/etc/nginx
+#      - ./certbot:/etc/letsencrypt
+#    depends_on:
+#      - api
+#      - frontend
+=======
+  api:
+    container_name: api
+    build:
+      context: ../server
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - 4000:4000
+    env_file:
+      - ../.env.staging
+>>>>>>> 16f86ab04bac666becca742dd66d72d92bd9045c
+
+  frontend:
+    container_name: frontend
+    build:
+      context: ../client
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - 3000:3000
+    env_file:
+      - ../.env.staging
+<<<<<<< HEAD
+    depends_on:
+      - api
+
+  api:
+    container_name: api
+    build:
+      context: ../server
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - 4000:4000
+    env_file:
+      - ../.env.staging
+    depends_on:
+      - database
+
+  database:
+=======
+
+  mongoDb:
+>>>>>>> 16f86ab04bac666becca742dd66d72d92bd9045c
+    container_name: mongoDb
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    ports:
+      - 27017:27017
